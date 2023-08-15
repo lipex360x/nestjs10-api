@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateVideoDto } from './dto/create-video.dto';
-import { UpdateVideoDto } from './dto/update-video.dto';
 import { PrismaService } from '../prisma/prisma/prisma.service';
 import { InvalidRelationError } from './errors/invalid-relation.error';
 
@@ -31,7 +30,11 @@ export class VideosService {
   }
 
   findAll() {
-    return this.prismaService.video.findMany();
+    return this.prismaService.video.findMany({
+      include: {
+        category: true,
+      },
+    });
   }
 
   findOne(id: number) {
@@ -42,11 +45,11 @@ export class VideosService {
     });
   }
 
-  update(id: number, updateVideoDto: UpdateVideoDto) {
-    return `This action updates a #${id} video`;
-  }
+  // update(id: number, updateVideoDto: UpdateVideoDto) {
+  //   return `This action updates a #${id} video`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} video`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} video`;
+  // }
 }

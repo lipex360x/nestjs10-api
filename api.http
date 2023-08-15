@@ -60,3 +60,6 @@ Content-Type: video/mp4
 
 < ./video.mp4
 ------WebKitFormBoundary12345--
+
+###
+GET http://localhost:3000/api/v1/videos/file/1692131934793.2788.mp4
