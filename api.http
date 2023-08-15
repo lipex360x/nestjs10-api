@@ -1,13 +1,26 @@
-POST http://localhost:3000/api/v1
-
 ###
 GET http://localhost:3000/api/v1/categories
 
 ###
+GET http://localhost:3000/api/v1/categories/3
+
+###
 POST http://localhost:3000/api/v1/categories
 Content-Type: application/json
+
 {
-  "name": "<NAME>",
-  "description": "<DESCRIPTION>",
+  "name": "supertest",
+  "description": "category of supertest"
 }
 
+###
+PATCH http://localhost:3000/api/v1/categories/1
+Content-Type: application/json
+
+{
+  "name": "xpto",
+  "description": "Category of xpto"
+}
+
+###
+DELETE http://localhost:3000/api/v1/categories/3
