@@ -7,6 +7,8 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 export class CategoriesService {
   constructor(private readonly prismaService: PrismaService) {}
   create(createCategoryDto: CreateCategoryDto) {
+    // throw new Error('XPTO');
+
     return this.prismaService.category.create({
       data: createCategoryDto,
     });
