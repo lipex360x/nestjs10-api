@@ -24,3 +24,18 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/v1/categories/3
+
+
+
+###
+GET http://localhost:3000/api/v1/videos
+
+###
+POST http://localhost:3000/api/v1/videos
+Content-Type: application/json
+
+{
+  "title": "videos",
+  "description": "video test",
+  "category_id": 10
+}

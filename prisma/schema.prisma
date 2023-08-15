@@ -14,6 +14,18 @@ model Category {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.Text
+  Video       Video[]
 
   @@map("categories")
+}
+
+model Video {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  file_path   String?  @db.Text
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id Int
+
+  @@map("videos")
 }
