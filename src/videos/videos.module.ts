@@ -4,6 +4,7 @@ import { VideosController } from './videos.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import multer from 'multer';
 import path from 'node:path';
+import { VideoSQSConsumer } from './video.consumer';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -21,6 +22,6 @@ const storage = multer.diskStorage({
     }),
   ],
   controllers: [VideosController],
-  providers: [VideosService],
+  providers: [VideosService, VideoSQSConsumer],
 })
 export class VideosModule {}
