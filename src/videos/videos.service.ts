@@ -7,7 +7,7 @@ import { InvalidRelationError } from './errors/invalid-relation.error';
 @Injectable()
 export class VideosService {
   constructor(private prismaService: PrismaService) {}
-  async create(createVideoDto: CreateVideoDto) {
+  async create(createVideoDto: CreateVideoDto & { file: Express.Multer.File }) {
     const categoryExists = await this.prismaService.category.count({
       where: {
         id: createVideoDto.category_id,
@@ -23,7 +23,7 @@ export class VideosService {
         title: createVideoDto.title,
         description: createVideoDto.description,
         category_id: createVideoDto.category_id,
-        file_path: 'fake/video.mp4',
+        file_path: createVideoDto.file.path,
       },
     });
 

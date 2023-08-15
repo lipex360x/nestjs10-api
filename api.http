@@ -25,8 +25,6 @@ Content-Type: application/json
 ###
 DELETE http://localhost:3000/api/v1/categories/3
 
-
-
 ###
 GET http://localhost:3000/api/v1/videos
 
@@ -39,3 +37,26 @@ Content-Type: application/json
   "description": "video test",
   "category_id": 10
 }
+
+###
+POST http://localhost:3000/api/v1/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary12345
+
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="title"
+
+Video 1
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="description"
+
+Description 1
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="category_id"
+
+1
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="file"; filename="video.mp4"
+Content-Type: video/mp4
+
+< ./video.mp4
+------WebKitFormBoundary12345--

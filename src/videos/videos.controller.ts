@@ -6,18 +6,43 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  ParseFilePipe,
+  HttpStatus,
+  UseInterceptors,
 } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
+import { VideoFileValidator } from './video-file.validator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('videos')
 export class VideosController {
   constructor(private readonly videosService: VideosService) {}
 
+  @UseInterceptors(FileInterceptor('file'))
   @Post()
-  create(@Body() createVideoDto: CreateVideoDto) {
-    return this.videosService.create(createVideoDto);
+  create(
+    @Body() createVideoDto: CreateVideoDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new VideoFileValidator({
+            maxSize: 1024 * 1024 * 100,
+            mimeType: 'video/mp4',
+          }),
+        ],
+        errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    console.log(file);
+    return this.videosService.create({
+      ...createVideoDto,
+      file,
+    });
   }
 
   @Get()
